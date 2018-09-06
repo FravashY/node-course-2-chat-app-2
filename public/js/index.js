@@ -5,18 +5,20 @@ socket.on('connect', function () {
 })
 
 socket.on('newMessage', function (msg) {
+  const formattedTime = moment(msg.createdAt).format('HH:mm:ss')
   console.log('newMessage', msg)
   const li = jQuery('<li></li>')
-  li.text(`${msg.from}: ${msg.text}`)
+  li.text(`${msg.from} ${formattedTime}: ${msg.text}`)
 
   jQuery('#messages').append(li)
 })
 
 socket.on('newLocationMessage', function (msg) {
+  const formattedTime = moment(msg.createdAt).format('HH:mm:ss')
   const li = jQuery('<li></li>')
   const a = jQuery('<a target="_blank">My current location</a>')
 
-  li.text(`${msg.from}: `)
+  li.text(`${msg.from} ${formattedTime}: `)
   a.attr('href', msg.url)
   li.append(a)
 
